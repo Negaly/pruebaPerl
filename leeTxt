@@ -18,8 +18,28 @@ GetOptions($rh_params,
 if(defined $rh_params->{'directorio'}){
 print ("Directorio introducido\n")}else{
 $rh_params->{'directorio'}='./'};
-unless(defined $rh_params->{'fichero'}){
-print "Introduzca el fichero que quiere leer, formato: -fichero 'fichero.txt' \n"  };
+
+if(defined $rh_params->{'ayuda'}){
+
+print <<"END"
+ 
+    Uso: leeTxt [parametros]
+ 
+    Lee un fichero 
+    Todos los parámetros son obligatorios si no se indica lo contrario:
+ 
+          --fichero   : nombre del fichero a leer
+          --directorio: nombre del directorio (./ si no lo pones)
+          --max-lineas : numero máximo de lineas a procesar (default value 100)
+          --ayuda     : imprime esta ayuda (opcional)
+ 
+END
+;
+
+
+};
+#unless(defined $rh_params->{'fichero'}){
+#print "Introduzca el fichero que quiere leer, formato: -fichero 'fichero.txt' \n"  };
 
 #Codigo para lectura
 my $dir = dir($rh_params->{'directorio'}); # /tmp
