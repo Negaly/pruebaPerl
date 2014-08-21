@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#/usr/bin/perl
 use strict;
 use warnings;
 
@@ -11,15 +11,22 @@ my $rh_params = {};
 GetOptions($rh_params,
   'directorio:s',
   'fichero:s',
-  'desde:s',
   'max-lineas:i',
   'ayuda',
 );
+
+#Excepciones
 if(defined $rh_params->{'directorio'}){
 print ("Directorio introducido\n")}else{
 $rh_params->{'directorio'}='./'};
 unless(defined $rh_params->{'fichero'}){
 print "Introduzca el fichero que quiere leer, formato: -fichero 'fichero.txt' \n"  };
+#Constantes:
+unless(defined $rh_params->{'max-lineas'}){
+$rh_params->{'max-lineas'}=100};
+
+
+
 
 #Codigo para lectura
 my $dir = dir($rh_params->{'directorio'}); # /tmp
