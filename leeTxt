@@ -19,13 +19,32 @@ GetOptions($rh_params,
 if(defined $rh_params->{'directorio'}){
 print ("Directorio introducido\n")}else{
 $rh_params->{'directorio'}='./'};
-unless(defined $rh_params->{'fichero'}){
-print "Introduzca el fichero que quiere leer, formato: -fichero 'fichero.txt' \n"  };
+
 #Constantes:
 unless(defined $rh_params->{'max-lineas'}){
 $rh_params->{'max-lineas'}=100};
 
+if(defined $rh_params->{'ayuda'}){
 
+print <<"END"
+ 
+    Uso: leeTxt [parametros]
+ 
+    Lee un fichero 
+    Todos los parámetros son obligatorios si no se indica lo contrario:
+ 
+          --fichero   : nombre del fichero a leer
+          --directorio: nombre del directorio (./ si no lo pones)
+          --max-lineas : numero máximo de lineas a procesar (default value 100)
+          --ayuda     : imprime esta ayuda (opcional)
+ 
+END
+;
+
+
+};
+unless(defined $rh_params->{'fichero'}){
+print "Introduzca el fichero que quiere leer, formato: -fichero 'fichero.txt' \n"  };
 
 
 #Codigo para lectura
@@ -42,4 +61,6 @@ my $file_handle = $file->openr();
 # Read in line at a time
 while( my $line = $file_handle->getline() ) {
         print $line;
+	$rh_params->{'max-lineas'}--;
+if($rh_params->{'max-lineas'}==0){last;};
 }
