@@ -1,0 +1,38 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use Getopt::Long;
+
+use Path::Class;
+use autodie; # die if problem reading or writing a file
+# Lee los parámetros en una variable rh_params
+my $rh_params = {};
+GetOptions($rh_params,
+  'directorio:s',
+  'fichero:s',
+  'desde:s',
+  'max-lineas:i',
+  'ayuda',
+);
+if(defined $rh_params->{'directorio'}){
+print ("Directorio introducido\n")}else{
+$rh_params->{'directorio'}='./'};
+unless(defined $rh_params->{'fichero'}){
+print "Introduzca el fichero que quiere leer, formato: -fichero 'fichero.txt' \n"  };
+
+#Codigo para lectura
+my $dir = dir($rh_params->{'directorio'}); # /tmp
+
+my $file = $dir->file($rh_params->{'fichero'});
+
+# Read in the entire contents of a file
+my $content = $file->slurp();
+
+# openr() returns an IO::File object to read from
+my $file_handle = $file->openr();
+
+# Read in line at a time
+while( my $line = $file_handle->getline() ) {
+        print $line;
+}
